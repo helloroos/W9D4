@@ -18,6 +18,6 @@
 <%# <% end %>
 
 <button class="follow-toggle"
-    follow-state="<%= follows?(@follow) %>"
-    user-id="<%= @follow %>">
+    data-follow-state="<%= current_user.follows?(user) %>"
+    data-user-id="<%= user.id %>">This is a Button
 </button>
