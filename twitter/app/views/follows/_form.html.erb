@@ -17,7 +17,13 @@
   <%# </form> %>
 <%# <% end %>
 
-<button class="follow-toggle"
-    data-follow-state="<%= current_user.follows?(user) %>"
-    data-user-id="<%= user.id %>">This is a Button
+<button 
+    class="follow-toggle"
+    data-follow-state="
+    <% if current_user.follows?(user) %>
+    follow
+    <% else %>
+    unfollow
+    <% end %>"
+    data-user-id="<%= user.id %>">
 </button>

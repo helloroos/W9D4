@@ -1,34 +1,47 @@
 class FollowToggle {
     constructor ($el) {
         this.$el = $el;
+        console.log($el);
         this.userId = $el.data("user-id");
-        this.followState = $el.data("initial-follow-state");
+        this.followState = $el.data("follow-state");
         this.render();
+        this.handleClick($el);
     };
 
     render() {
-        if (this.followState === "unfollowed") {
-            console.log("Follow!");
+        if (this.followState === "unfollow") {
+            const $btn = $("<li>");
+            $btn.append("Follow!")
+            this.$el.append($btn);
         } else {
-            console.log("Unfollow!");
+            const $btn = $("<li>");
+            $btn.append("Unfollow!")
+            this.$el.append($btn);
         };
     };
 
+    // handleClick(e) {
+    //     e.preventDefault();
+    // }
+
     handleClick(e) {
         e.preventDefault();
-        if (this.followState === "followed") {
+        if (this.followState === "follow") {
             let followMethod = "DELETE";
         } else {
             followMethod = "POST";
         }
         const submit = $.ajax({
-           method: followMethod,
-           url: `/users/${this.userId}/follow`,
-           dataType: "JSON",
+            method: followMethod,
+            url: `/users/${this.userId}/follow`,
+            dataType: "JSON",
         });
-
-        submit.then.toggleClass("unfollowed followed");
-    }
-}
+        this.$el.on("click", "li", (e) => {
+            const $li = $(e.currentTarget);
+            $li.toggleAttrVal(follow-state, "unfollow", "follow");
+        });
+        return submit;
+    };
+};
 
 module.exports = FollowToggle;
